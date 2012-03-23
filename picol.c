@@ -677,12 +677,12 @@ void Completion(const char *buf, linenoiseCompletions *lc)
 {
     if (buf[0] == 'p')
     {
-    linenoiseAddCompletion(lc, "proc");
-    linenoiseAddCompletion(lc, "puts");
+        linenoiseAddCompletion(lc, "proc");
+        linenoiseAddCompletion(lc, "puts");
     }
     else if (buf[0] == 'w')
     {
-    linenoiseAddCompletion(lc, "while");
+        linenoiseAddCompletion(lc, "while");
     }
     
 }
