@@ -17,7 +17,7 @@ while {$a < 5}
 {  
     w8 $a $a
     r8 $a
-    set a [$a + 1]
+    set a [$a + 1]; # that means a = a + 1
 }
 puts "a = $a"
 #exit

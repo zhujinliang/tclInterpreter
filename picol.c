@@ -11,6 +11,9 @@ void Debugf(char *format, ...)
 #endif
 
 volatile void *gl_addBase = NULL;
+volatile int gl_tabFlag = 0;
+struct command cmd = {0, NULL};
+
 void picolInitParser(struct picolParser *p, char *text) {
     p->text = p->p = text;
     p->len = strlen(text);
@@ -645,7 +648,9 @@ int picolCommandw8(struct picolInterp *i, int argc, char **argv, void *pd)
     return PICOL_OK;
 }
 void picolRegisterCoreCommands(struct picolInterp *i) {
-    int j; char *name[] = {"+","-","*","/",">",">=","<","<=","==","!=",
+    int j; 
+    char *str;
+    char *name[] = {"+","-","*","/",">",">=","<","<=","==","!=",
                            "&&","&","||","|","^","!","~",">>","<<"};
     for (j = 0; j < (int)(sizeof(name)/sizeof(char*)); j++)
         picolRegisterCommand(i,name[j],picolCommandMath,NULL);
@@ -661,6 +666,15 @@ void picolRegisterCoreCommands(struct picolInterp *i) {
 
     picolRegisterCommand(i,"r8",picolCommandr8,NULL);
     picolRegisterCommand(i,"w8",picolCommandw8,NULL);
+    
+    /* store the command you want to use "tab" to show here*/
+    str = (char*)malloc(strlen("r8")+1);
+    strcpy(str, "r8");
+    cmd.str[cmd.len++] = str;
+    str = (char*)malloc(strlen("w8")+1);
+    strcpy(str, "w8");
+    cmd.str[cmd.len++] = str;
+    
 }
 
 int HardwareInitial(void)
@@ -675,6 +689,7 @@ int HardwareInitial(void)
 }
 void Completion(const char *buf, linenoiseCompletions *lc)
 {
+    int i = 0;
     if (buf[0] == 'p')
     {
         linenoiseAddCompletion(lc, "proc");
@@ -683,8 +698,21 @@ void Completion(const char *buf, linenoiseCompletions *lc)
     else if (buf[0] == 'w')
     {
         linenoiseAddCompletion(lc, "while");
+        linenoiseAddCompletion(lc, "w8");
     }
-    
+    else if (buf[0] == 'r')
+    {
+        linenoiseAddCompletion(lc, "r8");
+    }
+    else if (buf[0] == '\0')
+    {
+        gl_tabFlag = 1;
+        printf("\n");
+        for (i=0; i<cmd.len; i++)
+        {
+            printf("\r%s\n", cmd.str[i]);
+        }
+    }
 }
 
 int main(int argc, char **argv) 
@@ -739,6 +767,11 @@ int main(int argc, char **argv)
                     linenoiseHistoryAdd(line);
                     if (linenoiseHistorySave(dir)) Debugf("save failed!\n");
                 }
+                if (gl_tabFlag == 1)
+                {
+                    gl_tabFlag = 0;
+                    continue;
+                }
                 if (!strcmp(line, "exit")) 
                 {
                     printf("exit success!\n");
@@ -758,6 +791,11 @@ int main(int argc, char **argv)
                 {
                     linenoiseHistoryAdd(line);
                     if (linenoiseHistorySave(dir)) Debugf("save failed!\n");
+                }
+                if (gl_tabFlag == 1)
+                {
+                    gl_tabFlag = 0;
+                    continue;
                 }
                 if (!strcmp(line, "exit")) 
                 {

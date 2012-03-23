@@ -9,9 +9,15 @@
 #include "linenoise.h"
 
 #define DEBUG_INFORMATION
+#define CMD_REGISTER_SIZE 100
 
 enum {PICOL_OK, PICOL_ERR, PICOL_RETURN, PICOL_BREAK, PICOL_CONTINUE};
 enum {PT_ESC,PT_STR,PT_CMD,PT_VAR,PT_SEP,PT_EOL,PT_EOF};
+struct command
+{
+    int len;
+    char *str[CMD_REGISTER_SIZE];
+};
 
 struct picolParser {
     char *text;
