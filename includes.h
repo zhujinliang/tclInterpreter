@@ -14,7 +14,7 @@
 #include "Simulation.h"
 #include "linenoise.h"
 
-#define DEBUG_INFORMATION
+//#define DEBUG_INFORMATION
 #define CMD_REGISTER_SIZE 100
 
 

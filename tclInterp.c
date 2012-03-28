@@ -149,7 +149,7 @@ int main(int argc, char **argv)
             buf[fread(buf,1,1024*16,fp)] = '\0';
             fclose(fp);
             if (picolEval(&interp,buf) != PICOL_OK) printf("%s\n", interp.result);
-            while((line = linenoise("picol>")) !=NULL)
+            while((line = linenoise("tcl>")) !=NULL)
             {
                 if (line[0] != '\0')
                 {
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
             break;
 
         default:
-            while((line = linenoise("picol>")) !=NULL)
+            while((line = linenoise("tcl>")) !=NULL)
             {
                 if (line[0] != '\0')
                 {

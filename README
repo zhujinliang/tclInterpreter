@@ -16,19 +16,60 @@
 
 Overview:
 ----------
-
+tclInterpreter is a very small tcl interpreter. It is developed based on the
+picol which is only 500 lines of C code by Salvatore antirez Sanfilippo and
+linenoise library which is also only 500 lines of C code by Salvatore
+Sanfilippo. 
+TCL which is for short of tool command language is a scripting language. It is
+easy to master, and very powerful. TCL is often used for rapid prototyping,
+scripting, GUI and testing. If you want to know more about TCL, please visit
+this website: www.tcl.tk
+The tclInterpreter supports the basic command of tcl, what's more, you can also
+add other commands to the program if needed. It can be used to use tcl script
+test hardware or others.
 
 
 How to use:
 ---------
+tclInterpreter can be compiled for a UNIX/Linux host by typing "make" under the
+tclInterpreter directory in the terminal.
+Then there will be an executable file called "tcl" exists. Now, you can run it 
+by typing "./tcl" in the terminal.
+When you run the "tcl", you can do these:
+1. If you don't type any pramaters after tcl, it will run in the interactive 
+mode. You can type tcl command directly, then type enter key to run them.
+
+2. Of course, if you have already created a tcl script, you can run it. Just 
+do like this: ./tcl -s [tcl script file name]
+
+3. If you just want to load the variables or functions which are already written 
+in the script to the memmory, just do like this: ./tcl  -i [tcl script file
+name]. After run load the script, you will get into interactive mode.
 
 
 Notice:
+-------
+Since the tclInterpreter includes the linenoise library, when we are in the
+interactive mode, we can use this function:
+1. You can use "tab" key to fill the whole command word if matches.
 
+2. These keys: up and down arrow, ctrl-p, ctrl-n, can be used to find the
+   history command. 
+
+3. These keys: left and right arrow, ctrl-f, ctrl-b, can be used to move the
+   cursor.
+
+4. These shortcuts you often use in the terminal is also available, such
+   as:ctrl-h, ctrl-d, ctrl-t, ctrl-u, ctrl-k, ctrl-a, ctrl-e, ctrl-l, ctrl-j.
+
+If you want to add more command to the software, you can see the function
+"picolRegisterCoreCommands" in the picol.c file, and learn how to complete.
 
 File:
 ------
-
+demo.tcl is a tcl script file which is an example for you to use.
+There will be a history.txt file exist in your HOME directory, which is used
+store the history command.
 
 Note:
 -------
@@ -42,9 +83,3 @@ If you want to make contact with me, mail me at this:
 zhujinlianghust#gmail.com
 
 -Zhu Jinliang, Mar 2012
-
-
-
-
-
-
