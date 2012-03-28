@@ -2,7 +2,7 @@ CC = gcc
 
 LIBS = -lm
 TARGET = tcl
-SRCS = picol.c Simulation.c linenoise.c 
+SRCS = picol.c Simulation.c linenoise.c tclInterp.c	 
 OBJS := $(SRCS:%.c=%.o)
 
 all :
@@ -14,3 +14,4 @@ clean :
 picol.o:picol.c includes.h
 Simulation.o:Simulation.c includes.h
 linenoise.o:linenoise.c linenoise.h
+tclInterp.o:tclInterp.c includes.h
