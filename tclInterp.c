@@ -135,6 +135,15 @@ int main(int argc, char **argv)
             }
             break;
 
+        case '?':
+            printf("Illegal parameter!\n");
+            printf("Every time you can only use one parameter!\n");
+            printf("Format: tcl              : default mode: interactive mode\n"
+                   "        tcl -s <tcl file>: script mode\n"
+                   "        tcl -i <tcl file>: interactive and script mode, you can run a script at first, then go to interactive mode\n"
+                  );
+            break;
+
         default:
             while((line = linenoise("picol>")) !=NULL)
             {
