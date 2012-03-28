@@ -658,13 +658,14 @@ void picolRegisterCoreCommands(struct picolInterp *i) {
     picolRegisterCommand(i,"w8",picolCommandw8,NULL);
     
     /* store the command you want to use "tab" to show here*/
-    str = (char*)malloc(strlen("r8")+1);
-    strcpy(str, "r8");
-    cmd.str[cmd.len++] = str;
-    str = (char*)malloc(strlen("w8")+1);
-    strcpy(str, "w8");
-    cmd.str[cmd.len++] = str;
-    
+    char *cmdName[] = {"set", "puts", "if", "while", "proc", "break", "continue", "return",
+                       "exit", "r8", "w8"};
+    for (j=0; j<(int)(sizeof(cmdName)/sizeof(char*)); j++)
+    {
+        str = (char*)malloc(strlen(cmdName[j])+1);
+        strcpy(str, cmdName[j]);
+        cmd.str[cmd.len++] = str;
+    }
 }
 
 

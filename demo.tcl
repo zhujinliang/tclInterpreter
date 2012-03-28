@@ -23,7 +23,6 @@ puts "a = $a"
 #exit
 set a (0:2) 0xa
 puts $a
-a (0:2)
 puts [a (0:2)]
 set b [a (0:2)]
 puts "b= $b"

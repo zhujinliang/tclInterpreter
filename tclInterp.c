@@ -31,27 +31,65 @@ int HardwareInitial(void)
     }
     return 1;
 }
+void CmpStr(const char *buf, char *str, int *p)
+{
+    int i =0;
+
+    while ((buf[i] != '\0') && (str[i] != '\0'))
+    {
+        if (buf[i] == str[i])
+        {
+            (*p) ++;
+        }
+        else
+        {
+            break;
+        }
+        i ++;
+    }
+  
+}
+
 void Completion(const char *buf, linenoiseCompletions *lc)
 {
     int i = 0;
-    if (buf[0] == 'p')
+    int same[100];
+    int temp = 0;
+    int index = 0;
+
+    for (i=0; i<cmd.len; i++)
     {
-        linenoiseAddCompletion(lc, "proc");
-        linenoiseAddCompletion(lc, "puts");
+        same[i] = 0;
     }
-    else if (buf[0] == 'w')
+    for (i=0; i<cmd.len; i++)
     {
-        linenoiseAddCompletion(lc, "while");
-        linenoiseAddCompletion(lc, "w8");
+        CmpStr(buf, cmd.str[i], &same[i]);
     }
-    else if (buf[0] == 'r')
+    for (i=0; i<cmd.len; i++)
     {
-        linenoiseAddCompletion(lc, "r8");
+        if (temp < same[i])
+        {
+            temp = same[i];
+        }
     }
-    else if (buf[0] == '\0')
+    if (temp != 0)
     {
+        for (i=0; i<cmd.len; i++)
+        {
+            if (same[i] == temp)
+            {
+                linenoiseAddCompletion(lc, cmd.str[i]);
+            }
+        }
+    }
+    else  
+    {
+        if (buf[0] != '\0')
+        {
+            printf("\r\nCan't find the match command!");
+        }
         gl_tabFlag = 1;
-        printf("\n");
+        printf("\n\rThe command you can use are:\n");
         for (i=0; i<cmd.len; i++)
         {
             printf("\r%s\n", cmd.str[i]);
