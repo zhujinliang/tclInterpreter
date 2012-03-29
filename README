@@ -50,7 +50,7 @@ name]. After run load the script, you will get into interactive mode.
 Notice:
 -------
 Since the tclInterpreter includes the linenoise library, when we are in the
-interactive mode, we can use this function:
+interactive mode, we can use these functions:
 1. You can use "tab" key to fill the whole command word if matches.
 
 2. These keys: up and down arrow, ctrl-p, ctrl-n, can be used to find the
